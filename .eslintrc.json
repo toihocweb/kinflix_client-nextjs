@@ -1,0 +1,100 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "google",
+        "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+        "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly",
+        "__DEV__": true
+    },
+    "parser": ["babel-eslint", "@typescript-eslint/parser"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "react-hooks", "import", "prettier"],
+    "rules": {
+        // eslint official
+        "linebreak-style": ["error", "unix"],
+        "newline-before-return": "error",
+        "no-continue": "off",
+        "quotes": ["error", "single", { "avoidEscape": true }],
+        "require-yield": "error",
+        "semi": ["error", "always"],
+        // for react
+        "react/jsx-filename-extension": [
+            "error",
+            {
+                "extensions": ["jsx", "js"]
+            }
+        ],
+        "react/jsx-props-no-spreading": [
+            "warn",
+            {
+                "custom": "ignore"
+            }
+        ],
+        "react/prop-types": "off",
+        "react/prefer-stateless-function": "off",
+        // react hooks
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "error",
+        // import
+        "import/extensions": [
+            "error",
+            "always",
+            {
+                "js": "never"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        // custom for project
+        "no-extra-boolean-cast": "off",
+        "max-len": "off",
+        "comma-dangle": "off",
+        "indent": ["error", 4],
+        "object-curly-spacing": "off",
+        "no-invalid-this": "off",
+        "require-jsdoc": "error",
+        "operator-linebreak": ["error", "before"],
+        "valid-jsdoc": [
+            "error",
+            {
+                "requireReturn": false,
+                "requireReturnType": true,
+                "matchDescription": ".*",
+                "requireParamDescription": true,
+                "requireReturnDescription": true
+            }
+        ],
+        "no-undef": "error",
+        "no-use-before-define": [
+            "error",
+            {
+                "functions": false,
+                "classes": true,
+                "variables": true
+            }
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    }
+}
