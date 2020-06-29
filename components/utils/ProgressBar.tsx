@@ -10,13 +10,7 @@ interface CssProps {
     StopDelayMs?: number;
 }
 
-const ProcessBar: FunctionComponent<CssProps> = ({
-    Color,
-    Height,
-    Option,
-    StartPosition,
-    StopDelayMs,
-}) => {
+const ProcessBar: FunctionComponent<CssProps> = (props) => {
     let timer = null;
 
     useEffect(() => {
@@ -29,7 +23,7 @@ const ProcessBar: FunctionComponent<CssProps> = ({
         Router.events.on('routeChangeError', routeChangeEnd);
     }, []);
     const routeChangeStart = () => {
-        NProgress.set(StartPosition);
+        NProgress.set(props.StartPosition);
         NProgress.start();
     };
 
@@ -37,7 +31,7 @@ const ProcessBar: FunctionComponent<CssProps> = ({
         clearTimeout(timer);
         timer = setTimeout(() => {
             NProgress.done(true);
-        }, StopDelayMs);
+        }, props.StopDelayMs);
     };
 
     return (
@@ -46,13 +40,13 @@ const ProcessBar: FunctionComponent<CssProps> = ({
                 pointer-events: none;
             }
             #nprogress .bar {
-                background: ${Color};
+                background: ${props.Color};
                 position: fixed;
                 z-index: 1031;
                 top: 0;
                 left: 0;
                 width: 100%;
-                height: ${Height}px;
+                height: ${props.Height}px;
             }
             #nprogress .peg {
                 display: block;
@@ -60,7 +54,7 @@ const ProcessBar: FunctionComponent<CssProps> = ({
                 right: 0px;
                 width: 100px;
                 height: 100%;
-                box-shadow: 0 0 10px ${Color}, 0 0 5px ${Color};
+                box-shadow: 0 0 10px ${props.Color}, 0 0 5px ${props.Color};
                 opacity: 1;
                 -webkit-transform: rotate(3deg) translate(0px, -4px);
                 -ms-transform: rotate(3deg) translate(0px, -4px);
@@ -78,8 +72,8 @@ const ProcessBar: FunctionComponent<CssProps> = ({
                 height: 18px;
                 box-sizing: border-box;
                 border: solid 2px transparent;
-                border-top-color: ${Color};
-                border-left-color: ${Color};
+                border-top-color: ${props.Color};
+                border-left-color: ${props.Color};
                 border-radius: 50%;
                 -webkit-animation: nprogresss-spinner 400ms linear infinite;
                 animation: nprogress-spinner 400ms linear infinite;
@@ -113,7 +107,7 @@ const ProcessBar: FunctionComponent<CssProps> = ({
 };
 
 ProcessBar.defaultProps = {
-    Color: '#1abc9c',
+    Color: '#587fff',
     StartPosition: 0.3,
     StopDelayMs: 200,
     Height: 4,

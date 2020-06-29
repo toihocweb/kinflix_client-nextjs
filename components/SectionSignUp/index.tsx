@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { Button } from 'antd';
+import variable from '../styles/variable';
 
 interface Props {}
 
@@ -10,20 +10,26 @@ const SectionSignup: FunctionComponent = (props: Props) => {
             <div className="container">
                 <style jsx>{`
                     .container {
-                        padding: 20px;
+                        padding-top: 40px;
                         text-align: center;
                     }
                 `}</style>
-                <p>テックビズPOINT CLUBへの入会がまだの方はこちら</p>
-                <Button
-                    style={{ marginBottom: 20, width: 500, height: 70 }}
-                    type="primary"
-                    size="large"
-                >
-                    <Link href="/signup">
-                        <a>テックビズPOINT CLUBに入会する</a>
-                    </Link>
-                </Button>
+                <p>テックビズPointClubへの入会がまだの方はこちら</p>
+                <Link href="/signup">
+                    <a
+                        style={{
+                            color: '#FCFCFC',
+                            padding: '36px 38px 37px',
+                            background: `${variable.btnColor}`,
+                            borderRadius: 10,
+                            fontSize: 20,
+                            boxShadow: '5px 5px 10px #0000004D',
+                            display: 'inline-block',
+                        }}
+                    >
+                        テックビズPointClubに入会する
+                    </a>
+                </Link>
             </div>
         </section>
     );

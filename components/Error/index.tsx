@@ -1,15 +1,15 @@
-import React, { FunctionComponent } from 'react';
 import { Alert } from 'antd';
+import React, { FunctionComponent } from 'react';
 
 interface ErrorProp {
     message: string;
 }
 
-const Error: FunctionComponent<ErrorProp> = ({ message }) => {
+const Error: FunctionComponent<ErrorProp> = (props) => {
     return (
         <Alert
             style={{ marginTop: 15 }}
-            message={message}
+            message={props.message}
             type="error"
             showIcon
         />

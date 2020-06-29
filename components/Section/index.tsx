@@ -1,7 +1,8 @@
+import { Col, Modal, Row } from 'antd';
 import React, { FunctionComponent } from 'react';
-import { Row, Col, Modal } from 'antd';
 import variables from '../styles/variable';
-import { ServiceItem } from '../utils/Item_interface';
+import { ServiceItem } from '../utils/ServiceItem_interface';
+import CloseModal from '../utils/CloseModal';
 
 interface PartyProp {
     Title: string;
@@ -10,7 +11,7 @@ interface PartyProp {
 
 type Parties = ServiceItem[];
 
-const Section: FunctionComponent<PartyProp> = ({ Title, Parties }) => {
+const Section: FunctionComponent<PartyProp> = (props) => {
     const [visible, setVisible] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState<boolean>(false);
     const [selectedItem, setSelectedItem] = React.useState<ServiceItem>(
@@ -39,102 +40,131 @@ const Section: FunctionComponent<PartyProp> = ({ Title, Parties }) => {
     };
 
     const handleShowItem = (id: number) => {
-        const currentItem = Parties.find((val: ServiceItem) => val.id === id);
+        const currentItem = props.Parties.find(
+            (val: ServiceItem) => val.id === id
+        );
         renderModal(currentItem, () => {
             showModal();
         });
     };
 
+    const handleClick = () => {};
+
     return (
         <section>
             <style jsx>{`
                 section {
-                    border: 2px solid ${variables.primary};
                     margin-bottom: 20px;
+                    background: #ebf4ff;
+                    padding: 100px 60px;
                 }
                 .title {
-                    color: white;
+                    color: #3e3e3e;
                     padding: 8px 14px;
-                    background: ${variables.primary};
                     text-align: center;
+                    font-size: 28px;
+                    width: 736px;
+                    margin: auto;
+                    border-bottom: 5px solid ${variables.primary};
+                }
+                @media (max-width: 850px) {
+                    .title {
+                        width: auto;
+                    }
                 }
                 .des {
                     margin-bottom: 20px;
                 }
                 .content {
-                    padding: 20px;
+                    padding-top: 30px;
                 }
                 img {
                     max-width: 100%;
                 }
                 .card {
-                    box-shadow: 1px 1px 2px 0px #33333363;
-                    transition: all 0.2s ease-in;
-                }
-                .card:hover {
-                    transform: translateY(-3px);
-                    box-shadow: 1px 3px 2px 0px #33333363;
-                }
-                .card a {
-                    display: block;
-                    padding: 8px;
-                }
-                .card a:hover {
-                    text-decoration: underline;
-                }
-                .card-title {
                     text-align: center;
-                    padding: 10px;
-                    background: #999;
-                    color: white;
                 }
+
                 .t-center {
                     text-align: center;
                     padding: 10px;
                 }
                 .modal-image {
-                    margin: 20px 0px;
+                    margin-bottom: 31px;
                 }
                 .item-image {
                     cursor: pointer;
                 }
+                h2 {
+                    font-size: 28px;
+                    font-family: 'meiryo-bold';
+                }
+                h4 {
+                    font-size 20px;
+                    margin-bottom: 22px;
+                }
+                
             `}</style>
-            <h2 className="title">{Title}</h2>
-            <div className="content">
-                <Row gutter={[20, 10]}>
-                    {Parties.map((val: any) => (
-                        <Col key={val.id} sm={8}>
-                            <div className="card">
-                                <div className="card-title">{val.title}</div>
-                                <p
-                                    className="item-image"
-                                    onClick={() => handleShowItem(val.id)}
-                                >
-                                    <img src={val.img} alt="" />
-                                </p>
-                            </div>
+            <div className="container">
+                <h2 className="title">{props.Title}</h2>
+                <div className="content">
+                    <Row>
+                        <Col
+                            sm={{ span: 24, offset: 0 }}
+                            md={{ span: 20, offset: 2 }}
+                            lg={{ span: 16, offset: 4 }}
+                        >
+                            <Row gutter={[20, 10]}>
+                                {props.Parties.map((val: any) => (
+                                    <Col key={val.id} sm={12} md={8}>
+                                        <div className="card">
+                                            <div
+                                                onClick={handleClick}
+                                                className="card-title"
+                                            >
+                                                {val.title}
+                                            </div>
+                                            <p
+                                                className="item-image"
+                                                onClick={() =>
+                                                    handleShowItem(val.id)
+                                                }
+                                            >
+                                                <img src={val.img} alt="" />
+                                            </p>
+                                        </div>
+                                    </Col>
+                                ))}
+                            </Row>
                         </Col>
-                    ))}
-                </Row>
-                <Modal
-                    title={selectedItem.title}
-                    visible={visible}
-                    onOk={handleOk}
-                    confirmLoading={loading}
-                    onCancel={handleCancel}
-                    footer={null}
-                    style={{ top: 15 }}
-                >
-                    <p>{selectedItem.link_text}</p>
-                    <p className="modal-image">
-                        <img src={selectedItem.img} alt="" />
-                    </p>
-                    <p className="modal-description">
-                        催式ホタ先1政経まち例緒銀料れ育線もよふ苦区ア一丹よび位用じレざさ果丼ク。1印サユイ並陣フせでこ治女ち選力ミ式95劇ネ応段すで彰株洋くみひ調人ったゅろ新使ヒ無事モヤフ電田ヤスロ身俊うあ償存油ニチセム分摘月ぞわ案図くゃえ以火違相ゃけ。
-                        <br />
-                        発ヘイツ上問ちづ間会節ぜゆえ人買ノマエ約族作でルけぐ度食ぴずい表不郎フぐ演購ヱヤモ連本ハチ局毎ょぎねぶ医2傷脱雪が。
-                    </p>
-                </Modal>
+                    </Row>
+
+                    <Modal
+                        visible={visible}
+                        onOk={handleOk}
+                        confirmLoading={loading}
+                        onCancel={handleCancel}
+                        footer={null}
+                        style={{ top: 15 }}
+                        closeIcon={<CloseModal />}
+                    >
+                        <h2>{selectedItem.title}</h2>
+                        <h4>{selectedItem.sub}</h4>
+                        <p className="modal-image">
+                            <img
+                                className="selected-img"
+                                src={selectedItem.modalImg}
+                                alt=""
+                            />
+                        </p>
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: selectedItem.description,
+                            }}
+                            className="modal-description"
+                        ></p>
+                    </Modal>
+                </div>
             </div>
         </section>
     );

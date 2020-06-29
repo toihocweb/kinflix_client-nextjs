@@ -1,3 +1,5 @@
 export default {
-    primary: '#1abc9c',
+    btnColor: '#BF0203',
+    primary: '#4E64AD',
+    cardBg: '#EEEEEE',
 };

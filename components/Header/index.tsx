@@ -1,55 +1,34 @@
-import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Button } from 'antd';
-const Header: FunctionComponent = (props) => {
-    const router = useRouter();
+import React, { FunctionComponent } from 'react';
+import variable from '../styles/variable';
+const Header: FunctionComponent<{ nav?: JSX.Element }> = ({ nav }) => {
     return (
         <header>
             <style jsx>
                 {`
                     header {
-                        padding: 20px 0px;
-                        border-bottom: 1px solid #f0f0f0;
+                        border-bottom: 5px solid ${variable.primary};
                     }
                     .container {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+                        height: 100%;
+                    }
+                    a {
+                        width: 145px;
+                        padding: 20px 0px 24px;
                     }
                 `}
             </style>
 
             <div className="container">
                 <Link href="/">
-                    <a className="logo">Logo</a>
+                    <a className="logo">
+                        <img src="/images/techbiz_pointclub@2x.png" />
+                    </a>
                 </Link>
-                <nav>
-                    {router.pathname !== '/signin' &&
-                        router.pathname !== '/signup' && (
-                            <ul
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <li style={{ marginRight: 20 }}>
-                                    <Link href="/signin">
-                                        <a className="btn-signup">Đăng Nhâp </a>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Button type="primary" ghost>
-                                        <Link href="/signup">
-                                            <a className="btn-signup">
-                                                Đăng Kí
-                                            </a>
-                                        </Link>
-                                    </Button>
-                                </li>
-                            </ul>
-                        )}
-                </nav>
+                {nav && <nav>{nav}</nav>}
             </div>
         </header>
     );
